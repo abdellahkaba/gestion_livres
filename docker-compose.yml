@@ -1,0 +1,24 @@
+services:
+  postgres:
+    container_name: postgres-book
+    image: postgres
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: book_db
+    volumes:
+      - postgres_book:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-book
+    restart: unless-stopped
+
+
+networks:
+  spring-book:
+    driver: bridge
+volumes:
+  postgres_book:
+    driver: local
